@@ -26,7 +26,8 @@ tự tìm `vidore_v3_industrial/pdfs`, tạo light index bằng multilingual Min
 chọn Top-K corpus/document/page và lưu manifest vào
 `AXIOM_DE-RD/data/output/subdata/vidore_v3_industrial/<timestamp>/` trên Google
 Drive. Notebook dừng trước full parsing,
-chunking và full embedding.
+chunking và full embedding. Các document được chọn được copy nguyên bản vào thư
+mục `documents/` bên trong mỗi lần chạy.
 
 Chi tiết kiến trúc và data schema nằm trong
 [`docs/query_to_subdata_design.md`](docs/query_to_subdata_design.md).
