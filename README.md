@@ -24,7 +24,8 @@ Mở [`notebooks/lightstar_subdata_colab.ipynb`](notebooks/lightstar_subdata_col
 chọn GPU runtime và chạy lần lượt từ trên xuống. Notebook mount Google Drive,
 tự tìm `vidore_v3_industrial/pdfs`, tạo light index bằng multilingual MiniLM,
 chọn Top-K corpus/document/page và lưu manifest vào
-`vidore_v3_industrial/subdata/<timestamp>/`. Notebook dừng trước full parsing,
+`AXIOM_DE-RD/data/output/subdata/vidore_v3_industrial/<timestamp>/` trên Google
+Drive. Notebook dừng trước full parsing,
 chunking và full embedding.
 
 Chi tiết kiến trúc và data schema nằm trong
