@@ -1,0 +1,31 @@
+{
+  "source": {
+    "type": "google_drive_desktop",
+    "folder_url": "https://drive.google.com/drive/u/6/folders/1J4oJmDDo3b89KuaF2oqCbyvp2Ym5mftN",
+    "shortcut_path": "G:\\My Drive\\vidore_v3_industrial.lnk",
+    "dataset_root": "G:\\.shortcut-targets-by-id\\11WmPde78oGBi2sbpI8d-I2IhbyhrxyS4\\iSE_DE\\vidore_v3\\vidore_v3_industrial",
+    "corpus_roots": {
+      "vidore_v3_industrial": "G:\\.shortcut-targets-by-id\\11WmPde78oGBi2sbpI8d-I2IhbyhrxyS4\\iSE_DE\\vidore_v3\\vidore_v3_industrial\\pdfs"
+    },
+    "stream_files": true
+  },
+  "top_k_corpora": 3,
+  "top_k_documents": 10,
+  "top_k_pages": 20,
+  "late_interaction_top_k": 3,
+  "selection_threshold": 0.15,
+  "alpha": 0.25,
+  "beta": 0.6,
+  "gamma": 0.15,
+  "exploration_rate": 0.05,
+  "random_seed": 17,
+  "max_preview_chars": 1200,
+  "max_preview_segments_per_document": 64,
+  "thumbnail_dpi": 48,
+  "create_pdf_thumbnails": false,
+  "ann_backend": "auto",
+  "ann_candidate_multiplier": 8,
+  "chunk_size_words": 180,
+  "chunk_overlap_words": 30,
+  "final_top_k": 5
+}
