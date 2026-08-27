@@ -181,13 +181,13 @@ class LightPreparer:
 
     def _preview_pdf(self, path: Path, document_id: str) -> _Preview:
         try:
-            import fitz
+            import pymupdf
         except ImportError as exc:
             raise RuntimeError("PDF light preparation requires PyMuPDF") from exc
 
         segments: list[tuple[str, str, int | None]] = []
         headings: list[str] = []
-        with fitz.open(path) as pdf:
+        with pymupdf.open(path) as pdf:
             metadata = pdf.metadata or {}
             title = str(metadata.get("title") or path.stem).strip()
             limit = min(len(pdf), self.config.max_preview_segments_per_document)
@@ -203,13 +203,13 @@ class LightPreparer:
             return _Preview(title, headings, segments, page_count=len(pdf))
 
     def _render_thumbnail(self, page: object, document_id: str, page_number: int) -> None:
-        import fitz
+        import pymupdf
 
         output_dir = self.thumbnail_dir / document_id
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path = output_dir / f"page-{page_number}.png"
         scale = self.config.thumbnail_dpi / 72.0
-        pixmap = page.get_pixmap(matrix=fitz.Matrix(scale, scale), alpha=False)
+        pixmap = page.get_pixmap(matrix=pymupdf.Matrix(scale, scale), alpha=False)
         pixmap.save(str(output_path))
 
     def _thumbnail_uri(self, document_id: str, page_number: int | None) -> str | None:

@@ -151,7 +151,7 @@ class FullProcessor:
         selected_page_numbers: set[int],
     ) -> list[ParsedUnit]:
         try:
-            import fitz
+            import pymupdf
         except ImportError as exc:
             raise RuntimeError("PDF full processing requires PyMuPDF") from exc
 
@@ -161,7 +161,7 @@ class FullProcessor:
             if segment.document_id == document_id and segment.page_number is not None
         }
         output: list[ParsedUnit] = []
-        with fitz.open(path) as pdf:
+        with pymupdf.open(path) as pdf:
             for page_number in sorted(selected_page_numbers):
                 if not 0 <= page_number < len(pdf):
                     continue
