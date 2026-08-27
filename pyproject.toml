@@ -19,6 +19,8 @@ ml = [
     "sentence-transformers>=3.0",
     "faiss-cpu>=1.8; platform_machine != 'arm64'",
     "hnswlib>=0.8",
+    "pandas>=2.0",
+    "pyarrow>=14.0",
 ]
 test = ["pytest>=8.0"]
 

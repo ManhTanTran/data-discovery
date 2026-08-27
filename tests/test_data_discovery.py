@@ -3,7 +3,9 @@ from __future__ import annotations
 import tempfile
 import unittest
 from pathlib import Path
+import json
 
+from src.data_discovery.batch import load_queries, run_query_batch
 from src.data_discovery.contracts import DiscoveryConfig
 from src.data_discovery.evaluation import GroundTruth, evaluate_selection, recall_at_k
 from src.data_discovery.full_processor import FullProcessor
@@ -119,6 +121,36 @@ class QueryToSubDataTests(unittest.TestCase):
         )
         selection = QueryRouter(self.index, config).select("truy vấn không tồn tại")
         self.assertTrue(any(item.exploration for item in selection.corpora))
+
+    def test_batch_creates_one_subdata_per_query_and_timing_summary(self) -> None:
+        query_file = self.root / "queries.jsonl"
+        query_file.write_text(
+            "\n".join(
+                json.dumps(item, ensure_ascii=False)
+                for item in [
+                    {"query_id": "q1", "query": "doanh thu Việt Nam"},
+                    {"query_id": "q2", "query": "năng lượng photon"},
+                ]
+            ),
+            encoding="utf-8",
+        )
+        queries = load_queries(query_file)
+        result = run_query_batch(
+            QueryRouter(self.index, self.config),
+            self.manifest,
+            queries,
+            self.root / "output",
+            self.config,
+            copy_documents=False,
+            extract_pages=False,
+            offline_timing_ms={"total_offline_ms": 12.5},
+        )
+        self.assertEqual(result.query_count, 2)
+        self.assertEqual(result.successful_queries, 2)
+        self.assertTrue(Path(result.summary_path).exists())
+        query_dirs = [Path(row["query_dir"]) for row in result.rows]
+        self.assertTrue(all((path / "subdata_manifest.json").exists() for path in query_dirs))
+        self.assertTrue(all(float(row["query_to_subdata_ms"]) >= 0 for row in result.rows))
 
 
 class MetricTests(unittest.TestCase):

@@ -94,7 +94,12 @@ class SentenceTransformerEmbedder:
                     "Install the discovery extra to use sentence-transformers"
                 ) from exc
             self._model = SentenceTransformer(self.model_name, device=self.device)
-            self.dimension = int(self._model.get_sentence_embedding_dimension())
+            dimension_getter = getattr(
+                self._model,
+                "get_embedding_dimension",
+                self._model.get_sentence_embedding_dimension,
+            )
+            self.dimension = int(dimension_getter())
         return self._model
 
     def encode(self, texts: list[str]) -> list[list[float]]:
@@ -412,4 +417,3 @@ def _content_tokens(text: str) -> list[str]:
         "các", "của", "cho", "là", "một", "những", "trong", "và", "về",
     }
     return [token for token in tokenize(text) if token not in stopwords and len(token) > 1]
-

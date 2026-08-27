@@ -29,5 +29,10 @@ Drive. Notebook dừng trước full parsing,
 chunking và full embedding. Mỗi lần chạy tạo `documents/` chứa nguyên file được
 chọn và `pages/` chứa từng trang PDF được chọn dưới dạng PDF một trang.
 
+Notebook đọc toàn bộ query từ thư mục `queries/`, tạo một SubData riêng cho mỗi
+query và ghi `batch_summary.csv` với `selection_ms`, `export_subdata_ms` và
+`query_to_subdata_ms`. Các cột `deep_processing_ms`, `qa_ms`, `total_e2e_ms`
+được để sẵn cho benchmark pipeline hoàn chỉnh.
+
 Chi tiết kiến trúc và data schema nằm trong
 [`docs/query_to_subdata_design.md`](docs/query_to_subdata_design.md).
